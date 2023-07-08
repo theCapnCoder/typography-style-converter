@@ -1,11 +1,12 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import React from "react";
 
 export const Converter = () => {
   const initialValues = {
-    text: "",
+    blockText: "",
   };
+
 
   return (
     <Box>
@@ -16,10 +17,14 @@ export const Converter = () => {
         onSubmit={(values) => console.log(values)}
       >
         {(FormikProps) => (
-          <Stack direction={"row"} gap={2}>
-            <TextField></TextField>
-            <Button variant="contained">Add</Button>
-          </Stack>
+          <Form>
+            <Stack direction={"row"} gap={2}>
+              <TextField name="blockText" onChange={FormikProps.handleChange}></TextField>
+              <Button type="submit" variant="contained">
+                Add
+              </Button>
+            </Stack>
+          </Form>
         )}
       </Formik>
     </Box>
