@@ -1,31 +1,23 @@
-interface MyObject {
-  color?: string;
-  textAlign?: string;
-  fontFamily?: string;
-  fontSize?: number;
-  fontStyle?: string;
-  fontWeight?: number;
-  lineHeight?: string;
-  [key: string]: any;
-}
-
 interface ObjectWithCount {
   count: number;
-  object: MyObject;
+  object: {
+    [key: string]: any;
+  };
 }
 
-export function deletePropsFromObjects(arr: ObjectWithCount[], propsToDelete: string[]): ObjectWithCount[] {
-  const result: ObjectWithCount[] = [];
-  console.log(propsToDelete)
+export function deletePropsFromObjects(arr: ObjectWithCount[], propsToDelete: string[]): { [key: string]: any } {
+  const result: { [key: string]: any } = {};
 
-  for (const item of arr) {
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i];
     const obj = { ...item.object };
+    const className = `h${i + 1}`;
 
     for (const prop of propsToDelete) {
       delete obj[prop];
     }
 
-    result.push({ count: item.count, object: obj });
+    result[className] = obj;
   }
 
   return result;
