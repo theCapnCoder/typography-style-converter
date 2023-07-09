@@ -11,13 +11,13 @@ import { useEffect, useState } from "react";
 import transformCSSCode from "./helpers";
 import { countSimilarObjects } from "./helpers/countSimilarObjects";
 import { deletePropsFromObjects } from "./helpers/deletePropsFromObjects";
+import { PropsSelector } from "./PropsSelector";
 
 export const Converter = () => {
   const [reactStyle, setReactStyle] = useState<any>([]);
   const [repeatStyles, setRepeatStyles] = useState<any>([]);
   const [clearStyles, setClearStyles] = useState<any>([]);
-
-  // Array<Record<string, string | number>>
+  const [deleteProps, setDeleteProps] = useState<any>([]);
 
   const initialValues = {
     blockText: "",
@@ -34,6 +34,13 @@ export const Converter = () => {
   useEffect(() => {
     setClearStyles(repeatStyles);
   }, [repeatStyles]);
+
+  const fontOptions = [
+    { fontFamily: "Arial", fontStyle: "normal" },
+    { fontFamily: "Arial", fontStyle: "italic" },
+    { fontFamily: "Times New Roman", fontStyle: "normal" },
+    { fontFamily: "Times New Roman", fontStyle: "italic" },
+  ];
 
   return (
     <Box>
@@ -92,23 +99,36 @@ export const Converter = () => {
         </Box>
 
         <Box>
-          <Button variant="contained" onClick={() => console.log(repeatStyles)}>
-            Get clear styles
-          </Button>
           <Button
             variant="contained"
-            color="warning"
-            onClick={() => {
-              setClearStyles(
-                deletePropsFromObjects(repeatStyles, ["fontFamily"])
-              );
-            }}
+            onClick={(state) => setDeleteProps(state)}
           >
-            Delete fontFamily
+            Get clear styles
           </Button>
 
           <Paper elevation={8} sx={{ px: 2, minWidth: 200, minHeight: 200 }}>
             <pre>{JSON.stringify(clearStyles, null, 2)}</pre>
+          </Paper>
+        </Box>
+
+        <Box>
+          <Button
+            sx={{ mb: "13px" }}
+            variant="contained"
+            color="warning"
+            onClick={() => {
+              setClearStyles(
+                deletePropsFromObjects(
+                  repeatStyles,
+                  Object.keys(deleteProps).filter((key) => deleteProps[key])
+                )
+              );
+            }}
+          >
+            Delete Props
+          </Button>
+          <Paper elevation={8} sx={{ px: 2, minWidth: 200, minHeight: 200 }}>
+            <PropsSelector onSelect={(state) => setDeleteProps(state)} />
           </Paper>
         </Box>
       </Stack>
