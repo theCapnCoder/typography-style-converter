@@ -35,13 +35,6 @@ export const Converter = () => {
     setClearStyles(repeatStyles);
   }, [repeatStyles]);
 
-  const fontOptions = [
-    { fontFamily: "Arial", fontStyle: "normal" },
-    { fontFamily: "Arial", fontStyle: "italic" },
-    { fontFamily: "Times New Roman", fontStyle: "normal" },
-    { fontFamily: "Times New Roman", fontStyle: "italic" },
-  ];
-
   return (
     <Box>
       <Typography variant="h2">Enter CSS</Typography>
