@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/typography-style-converter/static/js/main.9f137396.js",
+    "main.js": "/typography-style-converter/static/js/main.b816fffd.js",
     "index.html": "/typography-style-converter/index.html",
-    "main.9f137396.js.map": "/typography-style-converter/static/js/main.9f137396.js.map"
+    "main.b816fffd.js.map": "/typography-style-converter/static/js/main.b816fffd.js.map"
   },
   "entrypoints": [
-    "static/js/main.9f137396.js"
+    "static/js/main.b816fffd.js"
   ]
 }
