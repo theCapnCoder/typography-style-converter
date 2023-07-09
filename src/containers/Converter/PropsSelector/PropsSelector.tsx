@@ -10,7 +10,7 @@ import React, { useEffect } from "react";
 
 type State = {
   fontFamily: boolean;
-  fontSize: boolean;
+  fontStyle: boolean;
 };
 
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
 export const PropsSelector: React.FC<Props> = ({ onSelect }) => {
   const [state, setState] = React.useState({
     fontFamily: false,
-    fontSize: false,
+    fontStyle: false,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +34,7 @@ export const PropsSelector: React.FC<Props> = ({ onSelect }) => {
     onSelect(state);
   }, [state, onSelect]);
 
-  const { fontFamily, fontSize } = state;
+  const { fontFamily, fontStyle } = state;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -54,12 +54,12 @@ export const PropsSelector: React.FC<Props> = ({ onSelect }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={fontSize}
+                checked={fontStyle}
                 onChange={handleChange}
-                name="fontSize"
+                name="fontStyle"
               />
             }
-            label="fontSize"
+            label="fontStyle"
           />
         </FormGroup>
       </FormControl>
