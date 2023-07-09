@@ -1,9 +1,19 @@
+interface MyObject {
+  color: string;
+  textAlign: string;
+  fontFamily: string;
+  fontSize: number;
+  fontStyle: string;
+  fontWeight: number;
+  lineHeight: string;
+}
+
 interface ObjectWithCount {
-  object: object;
+  object: MyObject;
   count: number;
 }
 
-export function countSimilarObjects(arr: object[]): ObjectWithCount[] {
+export function countSimilarObjects(arr: MyObject[]): ObjectWithCount[] {
   const countMap: { [key: string]: number } = {};
   const result: ObjectWithCount[] = [];
 
@@ -21,43 +31,16 @@ export function countSimilarObjects(arr: object[]): ObjectWithCount[] {
   // Create array of objects with count
   for (const key in countMap) {
     const count = countMap[key];
-    const obj = JSON.parse(key);
-    result.push({ object: obj, count: count });
+    const obj = JSON.parse(key) as MyObject;
+    result.push({count,  object: obj });
   }
+
+  // Sort objects by fontSize
+  result.sort((a, b) => {
+    const fontSizeA = a.object.fontSize;
+    const fontSizeB = b.object.fontSize;
+    return fontSizeB - fontSizeA;
+  });
 
   return result;
 }
-
-// Example usage:
-const objects = [
-  {
-    color: "#FFF",
-    textAlign: "center",
-    fontFamily: "Averta CY",
-    fontSize: 39,
-    fontStyle: "normal",
-    fontWeight: 600,
-    lineHeight: "103.1%",
-  },
-  {
-    color: "#FFF",
-    textAlign: "center",
-    fontFamily: "Averta CY",
-    fontSize: 39,
-    fontStyle: "normal",
-    fontWeight: 600,
-    lineHeight: "103.1%",
-  },
-  {
-    color: "rgba(0, 0, 0, 0.69)",
-    textAlign: "center",
-    fontFamily: "Averta CY",
-    fontSize: 16,
-    fontStyle: "normal",
-    fontWeight: 400,
-    lineHeight: "128.1%",
-  },
-];
-
-const result = countSimilarObjects(objects);
-console.log(result);
