@@ -8,17 +8,15 @@ import {
 } from "@mui/material";
 import { Formik, Form } from "formik";
 import { useState } from "react";
-import { transformCSSCode } from "./helpers";
+import transformCSSCode from "./helpers";
 
 export const Converter = () => {
-  const [reactStyle, setReactStyle] = useState<
-    Array<Record<string, string | number>>
-  >([]);
+  const [reactStyle, setReactStyle] = useState<any>([]);
+  // Array<Record<string, string | number>>
 
   const initialValues = {
     blockText: "",
   };
-
 
   const accumulateStyle = (blockText: string) => {
     setReactStyle([...reactStyle, transformCSSCode(blockText)]);
