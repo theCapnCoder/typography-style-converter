@@ -1,0 +1,1 @@
+export { PropsSelector } from './PropsSelector';

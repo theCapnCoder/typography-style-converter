@@ -1,4 +1,11 @@
-export function transformCSSCode(cssCode: string): Record<string, string | number> {
+const transformValue = (prop: string, value: string) => {
+  if (prop === 'fontSize' || prop === 'fontWeight'){
+    return parseInt(value)
+  }
+  return value;
+}
+
+function transformCSSCode(cssCode: string): Record<string, string | number> {
   const lines = cssCode.trim().split(';');
   const styles: Record<string, string | number> = {};
 
@@ -6,25 +13,10 @@ export function transformCSSCode(cssCode: string): Record<string, string | numbe
     const [property, value] = line.split(':').map(part => part.trim());
     const transformedProperty = property.replace(/-(\w)/g, (_, letter) => letter.toUpperCase());
 
-    styles[transformedProperty] = isQuotedProperty(transformedProperty) ? value.replace(/["']/g, '') : value;
+    styles[transformedProperty] = transformValue(transformedProperty, value)
   });
 
   return styles;
 }
 
-function isQuotedProperty(property: string): boolean {
-  return ['color', 'textAlign', 'fontFamily', 'fontSize', 'fontStyle'].includes(property);
-}
-
-// const cssCode = `
-//   color: #FFF;
-//   text-align: center;
-//   font-family: Averta CY;
-//   font-size: 39px;
-//   font-style: normal;
-//   font-weight: 600;
-//   line-height: 103.1%;
-// `;
-
-// const transformedStyles = transformCSSCode(cssCode);
-// console.log(transformedStyles);
+export default transformCSSCode;
