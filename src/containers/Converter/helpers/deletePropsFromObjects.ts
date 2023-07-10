@@ -11,7 +11,7 @@ export function deletePropsFromObjects(arr: ObjectWithCount[], propsToDelete: st
   for (let i = 0; i < arr.length; i++) {
     const item = arr[i];
     const obj = { ...item.object };
-    const className = `h${i + 1}`;
+    const className = `textProps${i + 1}`;
 
     for (const prop of propsToDelete) {
       delete obj[prop];
